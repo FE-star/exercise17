@@ -18,7 +18,8 @@ class ObserverList {
     var idx = 0;
     while(idx < this.observerList.length) {
       if (this.observerList[idx] === observer) {
-        return this.observerList.splice(idx, 1);
+        this.observerList.splice(idx, 1);
+        continue;
       }
       ++ idx;
     }

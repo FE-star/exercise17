@@ -16,6 +16,7 @@ describe('PubSub', () => {
     let val = Math.random() * 1e9 >> 0;
     ob.subscribe('add', (val) => sum += val);
     ob.publish('add', val);
+    console.log(sum, val)
     assert.ok(sum === val);
   });
 

@@ -13,8 +13,18 @@ module.exports = class PubSub {
 
   subscribe(type, fn) {
     // todo subscribe
-    if (this.subscribers[type]) return this.subscribers[type].push(fn)
-    this.subscribers[type] = [fn]
+    if (this.subscribers[type]) {
+      let idx = 0, typeHandlers = this.subscribers[type];
+
+      while (idx < typeHandlers.length) {
+        if (typeHandlers[idx] === fn) return;
+        ++ idx;
+      }
+
+      this.subscribers[type].push(fn);
+      return;
+    }
+    this.subscribers[type] = [fn];
     
   }
 
@@ -30,7 +40,7 @@ module.exports = class PubSub {
   publish(type, ...args) {
     let typeHandlers = this.subscribers[type] || [];
     typeHandlers.forEach(handler => {
-      handler.apply(this, args)
+      handler.apply(this, args);
     });
   }
 

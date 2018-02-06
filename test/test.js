@@ -51,7 +51,7 @@ describe('Observable', () => {
     subject.addObserver(ob);
     assert.ok(subject.observers.count() === 1);
     let val = Math.random() * 1e9 >> 0;
-    subject.notify(val);
+    subject.notify(val)
     assert.ok(ob.sum === val);
   });
 

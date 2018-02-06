@@ -6,21 +6,22 @@
  */
 
 module.exports = class PubSub {
-
   constructor() {
     this.subscribers = {};
   }
 
   subscribe(type, fn) {
-    // todo subscribe
+    this.subscribers[type] = this.subscribers[type] || []
+    this.subscribers[type].push(fn);
   }
 
   unsubscribe(type, fn) {
-    // todo unsubscribe
+    delete this.subscribers[type]
   }
 
   publish(type, ...args) {
-    // todo publish
+    (this.subscribers[type] || []).forEach(fn => {
+      fn.apply(this, args)
+    });
   }
-
-}
+};

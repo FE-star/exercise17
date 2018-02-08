@@ -10,7 +10,6 @@ const { PubSub, Observable } = require('..');
 
 describe('PubSub', () => {
   let ob = new PubSub();
-
   it('subscribe -> publish', async () => {
     let sum = 0;
     let val = Math.random() * 1e9 >> 0;

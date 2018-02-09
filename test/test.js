@@ -1,6 +1,6 @@
 /*
- * @Author: kael 
- * @Date: 2018-02-01 17:59:38 
+ * @Author: kael
+ * @Date: 2018-02-01 17:59:38
  * @Last Modified by: kael
  * @Last Modified time: 2018-02-02 17:40:47
  */
@@ -16,6 +16,7 @@ describe('PubSub', () => {
     let val = Math.random() * 1e9 >> 0;
     ob.subscribe('add', (val) => sum += val);
     ob.publish('add', val);
+    console.log(sum, val);
     assert.ok(sum === val);
   });
 

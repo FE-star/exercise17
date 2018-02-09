@@ -38,9 +38,9 @@ module.exports = class PubSub {
     if (this.subscribers[type]) {
       let subscriber = this.subscribers[type];
       for (let i = 0; i < subscriber.length; i++) {
-        subscriber[i].callback(...args) 
+        subscriber[i].callback(...args) // TOTHINK
       }
-      return this
+      return this // TOTHINK
     }
     return false
   }

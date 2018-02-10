@@ -18,6 +18,9 @@ class ObserverList {
     let index = this.observerList.indexOf(observer);
     this.observerList.splice(index, 1);
   }
+  get(index) {
+    return this.observerList[index];
+  }
   count() {
     // return observer list size
     return this.observerList.length;
@@ -40,7 +43,7 @@ class Subject {
     // todo notify
     let observerLength = this.observers.count();
     for (let i = 0; i < observerLength; i++) {
-      this.observers.observerList[i].update(...args);
+      this.observers.get(i).update(...args);
     }
   }
 }

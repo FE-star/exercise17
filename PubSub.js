@@ -24,8 +24,10 @@ module.exports = class PubSub {
 
   unsubscribe(type, fn) {
     // todo unsubscribe
-    let index = this.subscribers.indexOf(type);
-    this.subscribers.splice(index, 1);
+    const subscribers = this.subscribers;
+    if(!subscribers[type]) return;
+    let index = subscribers[type].indexOf(fn);
+    subscribers[type].splice(index, 1);
   }
 
   publish(type, ...args) {

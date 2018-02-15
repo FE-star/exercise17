@@ -13,14 +13,19 @@ module.exports = class PubSub {
 
   subscribe(type, fn) {
     // todo subscribe
+    (this.subscribers[type] = this.subscribers[type] || []).push(fn);
   }
 
   unsubscribe(type, fn) {
     // todo unsubscribe
+    this.subscribers[type] = [];
   }
 
   publish(type, ...args) {
     // todo publish
+    this.subscribers[type].forEach((item,idx)=>{
+      item.apply(this,args);
+    })
   }
 
 }

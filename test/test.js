@@ -41,6 +41,7 @@ describe('Observable', () => {
       this.sum = 0;
     }
     update(val) {
+      console.log(val);
       this.sum += val;
     }
   }

@@ -45,7 +45,7 @@ module.exports = class PubSub {
         if (this.subscribers[type]) {
             for (let i = 0, len = this.subscribers[type].length; i < len; i++) {
                 this.subscribers[type][i](...args);
-                
+
             }
         }
 

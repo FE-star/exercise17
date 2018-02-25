@@ -11,7 +11,7 @@ const { PubSub, Observable } = require('..');
 describe('PubSub', () => {
   let ob = new PubSub();
 
-  it('subscribe -> publish', async () => {
+  it('subscribe -> publish', function(){
     let sum = 0;
     let val = Math.random() * 1e9 >> 0;
     ob.subscribe('add', (val) => sum += val);
@@ -19,7 +19,7 @@ describe('PubSub', () => {
     assert.ok(sum === val);
   });
 
-  it('subscribe -> publish -> unsubscribe -> publish', async () => {
+  it('subscribe -> publish -> unsubscribe -> publish', function(){
     let sum = 0;
     let val = Math.random() * 1e9 >> 0;
     let add = (val) => sum += val;
@@ -36,6 +36,7 @@ describe('PubSub', () => {
 });
 
 describe('Observable', () => {
+  //  观察者
   class Observer {
     constructor() {
       this.sum = 0;
@@ -45,9 +46,27 @@ describe('Observable', () => {
     }
   }
 
-  it('addObserver -> notify', async () => {
+  it('addObserver -> notify', function() {
+    /**
+     * subject = {
+     *    observers：{
+     *        observerList：[],
+     *        add:f (){},
+     *        remove:f (){},
+     *        count:f (){}
+     *    }
+     *    
+     * }
+     */
     let subject = new Observable.Subject();
+    /**
+     * ob = {
+     *    sum:0,
+     *    update:f (){}
+     * }
+     */
     let ob = new Observer();
+    //  添加到发布者
     subject.addObserver(ob);
     assert.ok(subject.observers.count() === 1);
     let val = Math.random() * 1e9 >> 0;
@@ -55,7 +74,7 @@ describe('Observable', () => {
     assert.ok(ob.sum === val);
   });
 
-  it('addObserver -> notify -> removeObserver -> notify', async () => {
+  it('addObserver -> notify -> removeObserver -> notify', function() {
     let subject = new Observable.Subject();
     let ob = new Observer();
     subject.addObserver(ob);

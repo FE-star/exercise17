@@ -8,7 +8,7 @@
 module.exports = class PubSub {
 
   constructor() {
-    //  储存需要订阅和发布的事件对象
+    //  储存需要订阅和发布的事件对象，调度中心
     this.subscribers = {};
   }
 

@@ -5,14 +5,17 @@
  * @Last Modified time: 2018-02-02 17:38:36
  */
 
+//  观察者
 class ObserverList {
   constructor() {
     this.observerList = [];
   }
+  //  注册一个观察对象
   add(observer) {
     // todo add observer to list
     this.observerList.push(observer);
   }
+  //  移除一个观察对象
   remove(observer) {
     // todo remove observer from list
     for (var i = 0; i < this.observerList.length; i++) {
@@ -21,6 +24,7 @@ class ObserverList {
       }
     }
   }
+  //  返回当前观察列表的长度
   count() {
     return this.observerList.length;
     // return observer list size

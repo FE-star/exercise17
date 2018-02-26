@@ -36,7 +36,7 @@ describe('PubSub', () => {
 });
 
 describe('Observable', () => {
-  //  观察者
+  //  订阅者
   class Observer {
     constructor() {
       this.sum = 0;

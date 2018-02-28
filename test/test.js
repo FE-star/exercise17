@@ -36,7 +36,7 @@ describe('PubSub', () => {
 });
 
 describe('Observable', () => {
-  //  订阅者
+  //  具体观察者（订阅者）
   class Observer {
     constructor() {
       this.sum = 0;
@@ -66,7 +66,7 @@ describe('Observable', () => {
      * }
      */
     let ob = new Observer();
-    //  添加到发布者
+    //  添加到发布者（具体目标）
     subject.addObserver(ob);
     assert.ok(subject.observers.count() === 1);
     let val = Math.random() * 1e9 >> 0;
@@ -75,11 +75,15 @@ describe('Observable', () => {
   });
 
   it('addObserver -> notify -> removeObserver -> notify', function() {
+    //  subject(具体观察者【订阅者】)
     let subject = new Observable.Subject();
+    //  ob(具体目标【发布者】)
     let ob = new Observer();
+    //  将订阅者注册到发布者
     subject.addObserver(ob);
     assert.ok(subject.observers.count() === 1);
     let val = Math.random() * 1e9 >> 0;
+    //  调度观察者
     subject.notify(val);
 
     ob.sum = 0;

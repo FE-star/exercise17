@@ -31,7 +31,7 @@ class ObserverList {
   }
 }
 
-//  发布者
+//  具体观察者
 class Subject {
   constructor() {
     this.observers = new ObserverList();

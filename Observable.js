@@ -22,6 +22,9 @@ class ObserverList {
     // return observer list size
     return this.observerList.length;
   }
+  get(index) {
+    return this.observerList[index];
+  }
 }
 
 //目标
@@ -40,10 +43,12 @@ class Subject {
   notify(...args) {
     // todo notify
     let observerCount = this.observers.count();
-    for(let mm in this.observers.observerList){
-      this.observers.observerList[mm].update(...args);
+    // for(let mm in this.observers.observerList){
+    //   this.observers.observerList[mm].update(...args);
+    // }
+    for(var i=0;i<observerCount;i++){
+      this.observers.get(i).update(...args);
     }
-
   }
 }
 

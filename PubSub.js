@@ -32,11 +32,13 @@ module.exports = class PubSub {
     if(!this.subscribers[type]){
       return -1;
     }
-    for(var m in this.subscribers[type]){
-      if(this.subscribers[type][m].fn === fn){
-        this.subscribers[type].splice(m,1);
-      }
-    }
+    //学习数组的filter方法
+    this.subscribers[type] = this.subscribers[type].filter(subObj => subObj.fn !== fn);
+    // for(var m in this.subscribers[type]){
+      // if(this.subscribers[type][m].fn === fn){
+        // this.subscribers[type].splice(m,1);
+      // }
+    // }
   }
 
   publish(type, ...args) {

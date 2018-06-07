@@ -6,7 +6,7 @@
  */
 
 const assert = require('assert');
-const { PubSub, Observable } = require('..');
+const { PubSub, Observable } = require('../index');
 
 describe('PubSub', () => {
   let ob = new PubSub();

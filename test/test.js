@@ -6,7 +6,7 @@
  */
 
 const assert = require('assert');
-const { PubSub, Observable } = require('..');
+const { PubSub, Observable } = require('../index');
 
 describe('PubSub', () => {
   let ob = new PubSub();
@@ -14,10 +14,7 @@ describe('PubSub', () => {
   it('subscribe -> publish', async () => {
     let sum = 0;
     let val = Math.random() * 1e9 >> 0;
-	var fn=(a,b)=>{
-		return sum+=val
-	}
-    ob.subscribe('add', fn);
+    ob.subscribe('add', val=>sum +=val);
     ob.publish('add', val);
     assert.ok(sum === val);
   });
@@ -25,7 +22,7 @@ describe('PubSub', () => {
   it('subscribe -> publish -> unsubscribe -> publish', async () => {
     let sum = 0;
     let val = Math.random() * 1e9 >> 0;
-    let add = (val) => sum +=n= val;
+    let add = val => sum += val;
     ob.subscribe('add', add);
     ob.publish('add', val);
     assert.ok(sum === val);
@@ -44,7 +41,7 @@ describe('Observable', () => {
       this.sum = 0;
     }
     update(val) {
-      this.sum += val;
+      this.sum = this.sum+Number(val);
     }
   }
 

@@ -15,44 +15,31 @@ module.exports = class PubSub {
 
   subscribe(type, fn) {
     // todo subscribe
-	if(!this.topics[type]){
-		this.topics[type]=[]
-	}
-	var token=(++this.subUid).toString();
-	this.topics[type].push({
-		token:token,
-		fn:fn
-	})
-	return token;
+	let container=this.subscribers[type]||[]
+	container.push(fn)
+	this.subscribers[type]=container
   }
 
   unsubscribe(type, fn) {
     // todo unsubscribe
-	for(var m in this.topics){
-		if(this.topics[m]){
-			var j=this.topics[m].length;
-			for(var i=0;i<j;i++){
-				if(this.topics[m][i].token===type){
-					this.topics[m].splice(i,1);
-					return type
-				}
-			}
-		}
+	let continer=this.subscribers[type]
+	if(!continer){
+		return ''
 	}
-	return this
+	this.subscribers[type]=continer.filter((item)=>{
+		return item!==fn
+	})
   }
 
   publish(type, ...args) {
     // todo publish
-	if(!this.topics[type]){
-		return false
+	let container=this.subscribers[type]
+	if(!container){
+		return 
 	}
-	var subscribers=this.topics[type]
-	var len=subscribers?subscribers.length:0
-	while(len--){
-		subscribers[len].fn(type,args)
-	}
-	return this
+	container.forEach((item)=>{
+		return item.apply(type,args)
+	})
   }
 
 }

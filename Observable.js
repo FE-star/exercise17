@@ -1,38 +1,70 @@
 /*
- * @Author: kael 
- * @Date: 2018-02-01 17:41:25 
- * @Last Modified by: kael
- * @Last Modified time: 2018-02-02 17:38:36
+ * @Author: mandy
+ * @Date: 2018-06-08
  */
 
+//观察者列表
 class ObserverList {
-  constructor() {
+  constructor () {
     this.observerList = [];
   }
-  add(observer) {
-    // todo add observer to list
-  }
-  remove(observer) {
-    // todo remove observer from list
-  }
-  count() {
-    // return observer list size
-  }
-}
 
+  add (observer) {
+    // todo add observer to list
+    return this.observerList.push(observer);
+  }
+
+  count () {
+    // todo return observer list size
+    return this.observerList.length;
+  }
+
+  get (index) {
+    if (index > -1 && index < this.observerList.length) {
+      return this.observerList[index];
+    }
+  }
+
+  indexOf (obj, strIndex) {
+    var i = strIndex;
+    while (i < this.observerList.length) {
+      if (this.observerList[i] === obj) {
+        return i
+      }
+      i++;
+    }
+    return -1;
+  }
+
+  remove (index) {
+// todo remove observer from list
+    this.observerList.splice(index, 1);
+  }
+
+}
+//目标
 class Subject {
-  constructor() {
+  constructor () {
     this.observers = new ObserverList();
   }
-  addObserver(observer) {
+
+  addObserver (observer) {
     // todo add observer
+    this.observers.add(observer);
   }
-  removeObserver(observer) {
+
+  removeObserver (observer) {
     // todo remove observer
+    this.observers.remove(this.observers.indexOf(observer, 0));
   }
-  notify(...args) {
+
+  notify (...args) {
     // todo notify
+    var observerCount = this.observers.count();
+    for (var i = 0; i < observerCount; i++) {
+      this.observers.get(i).update(args);
+    }
   }
 }
 
-module.exports = { Subject };
+module.exports = {Subject};

@@ -24,7 +24,7 @@ module.exports = class PubSub {
       return;
     }
     this.subscribers[type] = this.subscribers[type].filter(items=>{
-      items!=fn;
+      return items!=fn;
     })
     
     // todo unsubscribe

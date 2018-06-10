@@ -11,12 +11,15 @@ class ObserverList {
   }
   add(observer) {
     // todo add observer to list
+    return this.observerList.push(observer);
   }
   remove(observer) {
     // todo remove observer from list
+    this.observerList.splice(this.observerList.indexOf(observer), 1);
   }
   count() {
     // return observer list size
+    return this.observerList.length;
   }
 }
 
@@ -26,12 +29,15 @@ class Subject {
   }
   addObserver(observer) {
     // todo add observer
+    this.observers.add(observer);
   }
   removeObserver(observer) {
     // todo remove observer
+    this.observers.remove(observer);
   }
   notify(...args) {
     // todo notify
+    this.observers.observerList.forEach(observer=> observer.update(...args));
   }
 }
 

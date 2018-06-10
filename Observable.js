@@ -1,8 +1,8 @@
 /*
  * @Author: kael 
  * @Date: 2018-02-01 17:41:25 
- * @Last Modified by: shiji
- * @Last Modified time: 2018-06-07 19:42:36
+ * @Last Modified by: zelda.zhangze
+ * @Last Modified time: 2018-06-10 21:44:42
  */
 
 class ObserverList {
@@ -13,13 +13,32 @@ class ObserverList {
     // todo add observer to list
     this.observerList.push(observer);
   }
-  remove(observer) {
-    // todo remove observer from list
-    this.observerList.splice(this.observerList.indexOf(observer), 1);
-  }
   count() {
     // return observer list size
     return this.observerList.length;
+  }
+  get(index) {
+    if (index > -1 && index < this.count()) {
+      return this.observerList[i];
+    }
+  }
+  indexOf(observer, startIndex) {
+    // 数组本身也支持indexOf
+    var i = startIndex;
+    while (i < this.count()) {
+      if (this.get(i) === observer) {
+        return i;
+      }
+      i++;
+    }
+    return -1;
+  }
+  remove(observer) {
+    // todo remove observer from list
+    this.observerList.splice(this.indexOf(observer), 1);
+  }
+  removeAt(index) {
+    this.observerList.splice(index, 1);
   }
 }
 

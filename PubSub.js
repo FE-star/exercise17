@@ -1,26 +1,31 @@
 /*
  * @Author: kael 
  * @Date: 2018-02-01 17:41:25 
- * @Last Modified by: kael
- * @Last Modified time: 2018-02-02 17:39:45
+ * @Last Modified by: 周朝
+ * @Last Modified time: 2018-06-11 21:00:00
  */
 
 module.exports = class PubSub {
 
-  constructor() {
-    this.subscribers = {};
-  }
+    constructor() {
+        this.subscribers = {}
+    }
 
-  subscribe(type, fn) {
-    // todo subscribe
-  }
+    subscribe(type, fn) {
+        let listeners = this.subscribers[type] || []
+        listeners.push(fn)
+        this.subscribers[type] = listeners
+    }
 
-  unsubscribe(type, fn) {
-    // todo unsubscribe
-  }
+    unsubscribe(type, fn) {
+        let listeners = this.subscribers[type]
+        if (!listeners) return
+        this.subscribers[type] = listeners.filter(v => v !== fn)
+    }
 
-  publish(type, ...args) {
-    // todo publish
-  }
-
+    publish(type, ...args) {
+        let listeners = this.subscribers[type]
+        if (!listeners) return
+        listeners.forEach(item => (item.apply(type, args)))
+    }
 }

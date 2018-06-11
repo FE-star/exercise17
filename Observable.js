@@ -1,38 +1,65 @@
 /*
  * @Author: kael 
  * @Date: 2018-02-01 17:41:25 
- * @Last Modified by: kael
- * @Last Modified time: 2018-02-02 17:38:36
+ * @Last Modified by: 周朝
+ * @Last Modified time: 2018-06-11 21:00:00
  */
 
 class ObserverList {
-  constructor() {
-    this.observerList = [];
-  }
-  add(observer) {
-    // todo add observer to list
-  }
-  remove(observer) {
-    // todo remove observer from list
-  }
-  count() {
-    // return observer list size
-  }
+    constructor() {
+        this.observerList = [];
+    }
+
+    add(observer) {
+        this.observerList.push(observer)
+    }
+
+    get(index) {
+        if (index >= 0 && index < this.count()) {
+            return this.observerList[index]
+        }
+    }
+
+    removeAt(index) {
+        this.observerList.splice(index, 1)
+    }
+
+    count() {
+        return this.observerList.length
+    }
+
+    indexOf(observer, startIndex = 0) {
+        let i = startIndex
+
+        while (i < this.count()) {
+            if (this.observerList[i] === observer) {
+                return i
+            }
+            i++
+        }
+        return -1
+    }
 }
 
 class Subject {
-  constructor() {
-    this.observers = new ObserverList();
-  }
-  addObserver(observer) {
-    // todo add observer
-  }
-  removeObserver(observer) {
-    // todo remove observer
-  }
-  notify(...args) {
-    // todo notify
-  }
+    constructor() {
+        this.observers = new ObserverList();
+    }
+
+    addObserver(observer) {
+        this.observers.add(observer)
+    }
+
+    removeObserver(observer) {
+        this.observers.removeAt(this.observers.indexOf(observer))
+    }
+
+    notify(...args) {
+        let observerCount = this.observers.count()
+        for (let i = 0; i < observerCount; i++) {
+            this.observers.get(i).update(args)
+        }
+    }
 }
 
-module.exports = { Subject };
+module.exports = {Subject}

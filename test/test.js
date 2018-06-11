@@ -8,36 +8,36 @@
 const assert = require('assert');
 const { PubSub, Observable } = require('..');
 
-// describe('PubSub', () => {
-//   let ob = new PubSub();
-//
-//   it('subscribe -> publish', async () => {
-//     let sum = 0;
-//     let val = Math.random() * 1e9 >> 0;
-//     ob.subscribe('add', (val) => sum += val);
-//     ob.publish('add', val);
-//     assert.ok(sum === val);
-//   });
-//
-//   it('subscribe -> publish -> unsubscribe -> publish', async () => {
-//     let sum = 0;
-//     let val = Math.random() * 1e9 >> 0;
-//     let add = (val) => sum += val;
-//     ob.subscribe('add', add);
-//     ob.publish('add', val);
-//     assert.ok(sum === val);
-//
-//     sum = 0;
-//     val = Math.random() * 1e9 >> 0;
-//     ob.unsubscribe('add', add);
-//     ob.publish('add', val);
-//     assert.ok(sum !== val);
-//   });
-// });
-//
-//
-//
-//
+describe('PubSub', () => {
+  let ob = new PubSub();
+
+  it('subscribe -> publish', async () => {
+    let sum = 0;
+    let val = Math.random() * 1e9 >> 0;
+    ob.subscribe('add', (val) => sum += val);
+    ob.publish('add', val);
+    assert.ok(sum === val);
+  });
+
+  it('subscribe -> publish -> unsubscribe -> publish', async () => {
+    let sum = 0;
+    let val = Math.random() * 1e9 >> 0;
+    let add = (val) => sum += val;
+    ob.subscribe('add', add);
+    ob.publish('add', val);
+    assert.ok(sum === val);
+
+    sum = 0;
+    val = Math.random() * 1e9 >> 0;
+    ob.unsubscribe('add', add);
+    ob.publish('add', val);
+    assert.ok(sum !== val);
+  });
+});
+
+
+
+
 
 
 describe('Observable', () => {

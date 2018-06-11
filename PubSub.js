@@ -7,21 +7,41 @@
 
 class PubSub {
 
-  constructor() {
-    this.subscribers = {};
-  }
+	constructor() {
+		this.subscribers = {};
+	}
 
-  subscribe(type, fn) {
-    // todo subscribe
-  }
+	subscribe(type, fn) {
+		// subscribe
+		if (!this.subscribers[type]) {
+			this.subscribers[type] = [];
+		}
+		this.subscribers[type].push({
+			func: fn
+		})
+	}
 
-  unsubscribe(type, fn) {
-    // todo unsubscribe
-  }
+	unsubscribe(type, fn) {
+		// unsubscribe
+		if (this.subscribers[type]) {
+			this.subscribers[type].forEach((temp, index) => {
+				if (temp.func == fn) {
+					this.subscribers[type].splice(index,1);
+				}
+			})
+		}
+	}
 
-  publish(type, ...args) {
-    // todo publish
-  }
+	publish(type, ...args) {
+		// publish
+		if (!this.subscribers[type]) {
+			return
+		}
+		this.subscribers[type].forEach(item => {
+			item.func(...args);
+		})
+	}
 
 }
-module.exports = {PubSub}
+
+exports.PubSub = PubSub

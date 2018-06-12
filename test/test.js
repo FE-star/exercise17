@@ -9,11 +9,23 @@ const assert = require('assert');
 const { PubSub, Observable } = require('..');
 
 describe('PubSub', () => {
+  // 实例化一个发布订阅模式实例ob
   let ob = new PubSub();
 
   it('subscribe -> publish', async () => {
+    /** 按位运算符
+     * 1. num >> 0
+     * 2. ~~num
+     * 3. Math.floor(num)
+     */
     let sum = 0;
     let val = Math.random() * 1e9 >> 0;
+
+    /**
+     * 1. 【订阅】订阅add, 为其加入一个订阅者。订阅者为一个处理方法 (val) => sum += val
+     * 2. 【发布】给add的订阅者发布一个通知, 通知的信息为一个随机数 val
+     * 3. 因为 add 的处理方法中 sum 为0, 所以该处理方法执行后的 sum 值一定是等于接收到的(通知)的值 val。 所以这里断言 ob.publish('add', val) 之后 sum 值一定等于 val;
+    */
     ob.subscribe('add', (val) => sum += val);
     ob.publish('add', val);
     assert.ok(sum === val);
@@ -21,14 +33,25 @@ describe('PubSub', () => {
 
   it('subscribe -> publish -> unsubscribe -> publish', async () => {
     let sum = 0;
-    let val = Math.random() * 1e9 >> 0;
+    let val = Math.random() * 1e9 >> 0 + 1;
+
+    /**
+     * 1. 【订阅】订阅add, 为其加入一个订阅者。订阅者为一个处理方法 (val) => sum += val
+     * 2. 【发布】给add的订阅者发布一个通知, 通知的信息为一个随机数 val
+     * 3. 【分析并断言】因为 add 的处理方法中 sum 为0, 所以该处理方法执行后的 sum 值一定是等于接收到的(通知)的值 val。 所以这里断言 ob.publish('add', val) 之后 sum 值一定等于 val;
+    */
     let add = (val) => sum += val;
     ob.subscribe('add', add);
     ob.publish('add', val);
     assert.ok(sum === val);
 
+    /**
+     * 1. 【取消订阅】将sum的值重置为0; 取消add的订阅(即移出add下的订阅者add函数)。
+     * 2. 【发布】给add的订阅者发布一个通知, 通知的信息为一个随机数 val
+     * 3. 【分析并断言】ob.publish('add', val) 方法发布了一个通知，但是在上一步中取消了add的订阅(移除了add的订阅者)，所以没有订阅者会收到通知。即 sum 值仍然是 0, 而发布的通知时的 val 为一个【0, 1) 之间的数。因此断言两者一定不想等。
+    */
     sum = 0;
-    val = Math.random() * 1e9 >> 0;
+    val = Math.random() * 1e9 >> 0 + 1;
     ob.unsubscribe('add', add);
     ob.publish('add', val);
     assert.ok(sum !== val);

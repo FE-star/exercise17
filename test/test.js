@@ -33,7 +33,7 @@ describe('PubSub', () => {
 
   it('subscribe -> publish -> unsubscribe -> publish', async () => {
     let sum = 0;
-    let val = Math.random() * 1e9 >> 0 + 1;
+    let val = (Math.random() * 1e9 >> 0) + 1;
 
     /**
      * 1. 【订阅】订阅add, 为其加入一个订阅者。订阅者为一个处理方法 (val) => sum += val
@@ -51,11 +51,26 @@ describe('PubSub', () => {
      * 3. 【分析并断言】ob.publish('add', val) 方法发布了一个通知，但是在上一步中取消了add的订阅(移除了add的订阅者)，所以没有订阅者会收到通知。即 sum 值仍然是 0, 而发布的通知时的 val 为一个【0, 1) 之间的数。因此断言两者一定不想等。
     */
     sum = 0;
-    val = Math.random() * 1e9 >> 0 + 1;
+    val = (Math.random() * 1e9 >> 0) + 1;
     ob.unsubscribe('add', add);
     ob.publish('add', val);
     assert.ok(sum !== val);
   });
+
+  it('订阅 -> 订阅 -> 发布', async () => {
+    /**
+     * 1. 多次订阅 cale, 每个订阅者对通知数据做不同处理
+     * 2. 给cale的订阅者发布通知数据为 [1, 9] 的随机数
+     * 【分析并断言】第一个订阅者执行后返回 0 + 接收到的数据(即val); 第二个订阅者执行后返回 2 * 传入的值(即2*val)。
+     */
+    const val = (Math.random() * 9 >> 0) + 1;
+    let res1 = 0;
+    let res2 = 2;
+    ob.subscribe('cale', (val) => res1 += val).subscribe('cale', (val) => res2 *= val);
+    ob.publish('cale', val);
+    assert.equal(res1, val);
+    assert.equal(res2, val * 2);
+  })
 });
 
 describe('Observable', () => {
@@ -103,7 +118,7 @@ describe('Observable', () => {
 
     // 将观察者的属性sum重置为0
     ob.sum = 0;
-    val = Math.random() * 1e9 >> 0;
+    val = (Math.random() * 1e9 >> 0) + 1;
 
     // 从subject的观察者列表中移出刚添加的观察者ob, 断言subject的观察者个数为0
     subject.removeObserver(ob);

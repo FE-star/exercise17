@@ -13,7 +13,7 @@ describe('PubSub', () => {
 
   it('subscribe -> publish', async () => {
     let sum = 0;
-    let val =Math.random() * 1e9 >> 0;
+    let val = 1 + (Math.random() * 1e9 >> 0);
     ob.subscribe('add', (val) => sum += val);
     ob.publish('add', val);
     assert.ok(sum === val);
@@ -21,7 +21,7 @@ describe('PubSub', () => {
 
   it('subscribe -> publish -> unsubscribe -> publish', async () => {
     let sum = 0;
-    let val = Math.random() * 1e9 >> 0;
+    let val = 1 + (Math.random() * 1e9 >> 0);
     let add = (val) => sum += val;
     ob.subscribe('add', add);
     ob.publish('add', val);
@@ -47,7 +47,7 @@ describe('Observable', () => {
     let ob = new Observable.Observer();
     subject.addObserver(ob);
     assert.ok(subject.observers.count() === 1);
-    let val = Math.random() * 1e9 >> 0;
+    let val = 1 + (Math.random() * 1e9 >> 0);
     subject.notify(val);
     assert.ok(ob.sum === val);
   });
@@ -57,7 +57,7 @@ describe('Observable', () => {
     let ob = new Observable.Observer();
     subject.addObserver(ob);
     assert.ok(subject.observers.count() === 1);
-    let val = Math.random() * 1e9 >> 0;
+    let val = 1 + (Math.random() * 1e9 >> 0);
     subject.notify(val);
 
     ob.sum = 0;

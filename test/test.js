@@ -13,7 +13,7 @@ describe('PubSub', () => {
 
   it('subscribe -> publish', async () => {
     let sum = 0;
-    let val = Math.random() * 1e9 >> 0;
+    let val =Math.random() * 1e9 >> 0;
     ob.subscribe('add', (val) => sum += val);
     ob.publish('add', val);
     assert.ok(sum === val);
@@ -28,7 +28,7 @@ describe('PubSub', () => {
     assert.ok(sum === val);
 
     sum = 0;
-    val = Math.random() * 1e9 >> 0;
+    val = 1 + (Math.random() * 1e9 >> 0);
     ob.unsubscribe('add', add);
     ob.publish('add', val);
     assert.ok(sum !== val);
@@ -61,7 +61,7 @@ describe('Observable', () => {
     subject.notify(val);
 
     ob.sum = 0;
-    val = Math.random() * 1e9 >> 0;
+    val = 1 + (Math.random() * 1e9 >> 0);
     subject.removeObserver(ob);
     assert.ok(subject.observers.count() === 0);
     subject.notify(val);
@@ -70,20 +70,18 @@ describe('Observable', () => {
 
 
 
-
-	it('addSubject', async () => {
-		let subject = new Observable.Subject();
-		let ob = new Observable.Observer();
-		ob.addSubject(subject)
+  it('addSubject', async () => {
+    let subject = new Observable.Subject();
+    let ob = new Observable.Observer();
+    ob.addSubject(subject)
     assert.equal(ob.subjects.count(),1)
-	});
-
-	it('addSubject -> removeSubject',() => {
-		let subject = new Observable.Subject();
-		let ob = new Observable.Observer();
-		ob.addSubject(subject)
-		assert.equal(ob.subjects.count(), 1)
+  });
+  it('addSubject -> removeSubject',() => {
+    let subject = new Observable.Subject();
+    let ob = new Observable.Observer();
+    ob.addSubject(subject)
+    assert.equal(ob.subjects.count(), 1)
     ob.removeSubject(subject)
-    // assert.equal(ob.subjects.count(), 0)
-	})
+    assert.equal(ob.subjects.count(), 0)
+  })
 });

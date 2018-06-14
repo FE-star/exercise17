@@ -1,8 +1,8 @@
 /*
  * @Author: kael 
  * @Date: 2018-02-01 17:41:25 
- * @Last Modified by: kael
- * @Last Modified time: 2018-02-02 17:38:36
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2018-06-14 15:11:30
  */
 
 class ObserverList {
@@ -15,8 +15,8 @@ class ObserverList {
   }
   remove(observer) {
     // todo remove observer from list
-    if (observer && observer.indexOf(this.observerList) > -1) {
-      return this.observerList.splice(observer.indexOf(this.observerList), 1);
+    if (observer && this.indexOf(observer) > -1) {
+      return this.observerList.splice(this.indexOf(observer), 1);
     }
     return this.observerList;
   }
@@ -26,6 +26,15 @@ class ObserverList {
   }
   get(index) {
     return this.observerList[index];
+  }
+  indexOf(observer) {
+    let index = -1;
+    this.observerList.forEach((item, itemIndex) => {
+      if (observer == item) {
+        index = itemIndex
+      }
+    });
+    return index;
   }
 }
 
@@ -45,9 +54,11 @@ class Subject {
     // todo notify
     var count = this.observers.count();
     for (let i = 0; i < count; i++) {
-      this.observers.get(i).update( context );
+      this.observers.get(i).update(...args);
     }
   }
 }
 
-module.exports = { Subject };
+module.exports = {
+  Subject
+};

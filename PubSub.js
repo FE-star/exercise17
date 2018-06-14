@@ -2,7 +2,7 @@
  * @Author: kael 
  * @Date: 2018-02-01 17:41:25 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-06-12 22:16:08
+ * @Last Modified time: 2018-06-14 15:13:44
  */
 
 module.exports = class PubSub {
@@ -25,11 +25,25 @@ module.exports = class PubSub {
       // 没有该订阅者
       return;
     }
-    const index = fn.indexOf(this.subscribers[type]);
+    const index = this.indexOf(type, fn);
     if (index >= 0) {
       // 移除订阅者
       this.subscribers[type].splice(index, 1);
     }
+  }
+  /**
+   * 获取该订阅者在数组中的位置
+   * @param {*} type 
+   * @param {*} fn 
+   */
+  indexOf(type, fn) {
+    let index = -1;
+    this.subscribers[type].forEach((item, itemIndex) => {
+      if (fn == item) {
+        index = itemIndex
+      }
+    });
+    return index;
   }
   // 发布
   publish(type, ...args) {
@@ -41,8 +55,8 @@ module.exports = class PubSub {
 
     // 存在该订阅者, 发布信息
     const array = this.subscribers[type];
-    array.forEach(item => {
-      item.func(...args);
+    array.forEach(fn => {
+      fn(...args);
     });
 
     return this;

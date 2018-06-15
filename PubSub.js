@@ -12,14 +12,17 @@ module.exports = class PubSub {
   }
 
   subscribe(type, fn) {
+    this.subscribe[type] = fn
     // todo subscribe
   }
 
   unsubscribe(type, fn) {
+    this.subscribe[type] = null
     // todo unsubscribe
   }
 
   publish(type, ...args) {
+    this.subscribe[type] && this.subscribe[type](...args)
     // todo publish
   }
 

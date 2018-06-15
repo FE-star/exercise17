@@ -10,13 +10,19 @@ class ObserverList {
     this.observerList = [];
   }
   add(observer) {
+    this.observerList.push(observer)
     // todo add observer to list
   }
   remove(observer) {
+    this.observerList.splice(this.observerList.indexOf(observer), 1)
     // todo remove observer from list
   }
   count() {
+    return this.observerList.length
     // return observer list size
+  }
+  get() {
+    return this.observerList
   }
 }
 
@@ -25,12 +31,17 @@ class Subject {
     this.observers = new ObserverList();
   }
   addObserver(observer) {
+    this.observers.add(observer)
     // todo add observer
   }
   removeObserver(observer) {
+    this.observers.remove(observer)
     // todo remove observer
   }
   notify(...args) {
+    this.observers.get().map(item => {
+      item.update(...args)
+    })
     // todo notify
   }
 }

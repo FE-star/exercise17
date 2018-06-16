@@ -43,7 +43,7 @@ describe('Observable', () => {
       this.sum = 0;
     }
     update(val) {
-      this.sum += val;
+      this.sum += parseFloat(val);
     }
   }
 

@@ -7,20 +7,47 @@
 
 module.exports = class PubSub {
 
-  constructor() {
-    this.subscribers = {};
-  }
+    constructor() {
+        this.subscribers = {
+            // add:fn,
+            // click:fn
 
-  subscribe(type, fn) {
-    // todo subscribe
-  }
+        };
+    }
 
-  unsubscribe(type, fn) {
-    // todo unsubscribe
-  }
+    subscribe(type, fn) {//订阅
+        // todo subscribe
+        //方法一(别人写的)
+        if (!this.subscribers[type]) {
+            this.subscribers[type] = []
+        }
+        this.subscribers[type].push(fn)
 
-  publish(type, ...args) {
-    // todo publish
-  }
+        //方法二(我写的)
+        // this.subscribers[type] = fn
 
+        console.log(this.subscribers[type])
+
+    }
+
+    unsubscribe(type, fn) {//删除订阅事件
+        // todo unsubscribe
+
+        const subscribers = this.subscribers;
+        if (!subscribers[type]) return;
+        let index = subscribers[type].indexOf(fn);
+        subscribers[type].splice(index, 1);
+    }
+
+    publish(type, ...args) {//触发事件(发布事件)
+        // todo publish
+        // 循环调用该类型订阅者的处理函数
+        if (this.subscribers[type]) {
+            for (let i = 0, len = this.subscribers[type].length; i < len; i++) {
+                this.subscribers[type][i](...args);
+
+            }
+        }
+
+    }
 }

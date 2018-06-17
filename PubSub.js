@@ -2,7 +2,7 @@
  * @Author: kael 
  * @Date: 2018-02-01 17:41:25 
  * @Last Modified by: flcwl
- * @Last Modified time: 2018-06-17 13:36:05
+ * @Last Modified time: 2018-06-17 22:05:43
  */
 
 module.exports = class PubSub {
@@ -13,31 +13,30 @@ module.exports = class PubSub {
 
   subscribe(type, fn) {
     // todo subscribe
-    switch (type) {
-      case 'add': 
-        this.subscribers.add = fn;
-        break;
+    if (!this.subscribers[type]) {
+      this.subscribers[type] = [];
     }
+    this.subscribers[type].push(fn);
   }
 
   unsubscribe(type, fn) {
     // todo unsubscribe
-    switch (type) {
-      case 'add': 
-        this.subscribers.add = null;
-        break;
+    if (!this.subscribers[type]){
+      return;
     }
+    this.subscribers[type] = this.subscribers[type].filter(item => {
+      item !== fn;
+    }); // 移除该监听
   }
 
   publish(type, ...args) {
     // todo publish
-    switch (type) {
-      case 'add': 
-        if (this.subscribers.add) {
-          return this.subscribers.add(...args);
-        }
-        break;
+    if (!this.subscribers[type]) {
+      return;
     }
+    this.subscribers[type].forEach(fnItem => {
+      fnItem(...args);
+    });
   }
 
 }

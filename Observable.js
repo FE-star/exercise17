@@ -13,7 +13,8 @@ class ObserverList {
     // todo add observer to list
   }
   remove(observer) {
-    // todo remove observer from list
+    // todo remove observer 
+    from list
   }
   count() {
     // return observer list size

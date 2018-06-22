@@ -6,13 +6,11 @@
  */
 
 module.exports = class PubSub {
-
   constructor() {
     this.subscribers = {};
   }
 
   subscribe(type, fn) {
-    // todo subscribe
     if(!this.subscribers[type]){
       this.subscribers[type] = []
     }
@@ -20,17 +18,13 @@ module.exports = class PubSub {
   }
 
   unsubscribe(type, fn) {
-    // todo unsubscribe
     if(!!this.subscribers[type]){
       this.subscribers[type].splice(this.subscribers[type].findIndex(item => item === fn),1)
     }
   }
-
   publish(type, ...args) {
-    // todo publish
     if(!!this.subscribers[type]){
       this.subscribers[type].map(ob => ob(...args))
     }
   }
-
 }

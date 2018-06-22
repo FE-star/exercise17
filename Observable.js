@@ -13,18 +13,13 @@ class ObserverList {
     return this.observerList.push(observer)
   }
   remove(observer,index) {
-    // if(index === undefined || index===0){
-    //   this.observerList.shift()
-    // } else if(index === this.observerList.length -1){
-    //   this.observerList.pop()
-    // }
     this.observerList.splice(this.observerList.findIndex(item => item === observer),1)
   }
   count() {
     return this.observerList.length
   }
   IndexOf (observer,startIndex) {
-    let i= startIndex, pointer=-1
+    let i = startIndex, pointer = -1
     while (i < this.observerList.length) {
       if(this.observerList[i] === observer){
         pointer = i
@@ -51,14 +46,7 @@ class Subject {
     // this.observers.remove(this.observers.IndexOf(observer,0))
     this.observers.remove(observer)
   }
-  // notify(context) {
-  //   var observerCount = this.observers.count();
-  //   for(var i=0;i<observerCount;i++){
-  //     this.observers.Get(i).Update(context)
-  //   }
-  // }
   notify(...args) {
-    // todo notify
     this.observers.observerList.map(item  => item.update(...args))
   }
 }

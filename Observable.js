@@ -1,25 +1,20 @@
-/*
- * @Author: kael 
- * @Date: 2018-02-01 17:41:25 
- * @Last Modified by: kael
- * @Last Modified time: 2018-02-02 17:38:36
- */
+
 
 class ObserverList {
   constructor() {
     this.observerList = [];
   }
   add(observer) {
-    // todo add observer to list
     return this.observerList.push(observer);
   }
   remove(observer) {
-    // todo remove observer from list
     this.observerList.splice(this.observerList.indexOf(observer), 1);
   }
   count() {
-    // return observer list size
     return this.observerList.length;
+  }
+  get(index){  //保持完整性，在别的地方要用的 时候可以直接调用，而不需要管observerList 是什么东西，什么数据结构。
+    return this.observerList[index];
   }
 }
 
@@ -28,15 +23,12 @@ class Subject {
     this.observers = new ObserverList();
   }
   addObserver(observer) {
-    // todo add observer
     this.observers.add(observer);
   }
   removeObserver(observer) {
-    // todo remove observer
     this.observers.remove(observer);
   }
   notify(...args) {
-    // todo notify
     this.observers.observerList.forEach(observer=> observer.update(...args));
   }
 }

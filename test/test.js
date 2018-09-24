@@ -43,6 +43,7 @@ describe('Observable', () => {
       this.sum = 0;
     }
     update(val) {
+      console.log('update', val);
       this.sum += val;
     }
   }
@@ -64,7 +65,6 @@ describe('Observable', () => {
     assert.ok(subject.observers.count() === 1);
     let val = random();
     subject.notify(val);
-
     ob.sum = 0;
     val = random();
     subject.removeObserver(ob);

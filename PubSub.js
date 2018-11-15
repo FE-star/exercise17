@@ -6,21 +6,35 @@
  */
 
 module.exports = class PubSub {
+	constructor() {
+		this.subscribers = {};
+	}
+	subscribe(type, fn) {
+		// todo subscribe
+		(this.subscribers[type]= this.subscribers[type] || []).push({
+			fn: fn
+		})	
+		
+	}
+	unsubscribe(type, fn) {
+		// todo unsubscribe
+		if(!this.subscribers[type]) return
+		this.subscribers[type].map((item, index)=> {
+			if(item.fn == fn) {
+				this.subscribers[type].splice(index, 1)
+			}
+			
+		})
+	}
 
-  constructor() {
-    this.subscribers = {};
-  }
+	publish(type, ...args) {
+		// todo publish
+		let subscribers= this.subscribers[type],
+			len= subscribers ? subscribers.length : 0
 
-  subscribe(type, fn) {
-    // todo subscribe
-  }
-
-  unsubscribe(type, fn) {
-    // todo unsubscribe
-  }
-
-  publish(type, ...args) {
-    // todo publish
-  }
+		while(len--) {
+			subscribers[len].fn(...args)
+		}
+	}
 
 }

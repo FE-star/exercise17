@@ -6,33 +6,49 @@
  */
 
 class ObserverList {
-  constructor() {
-    this.observerList = [];
-  }
-  add(observer) {
-    // todo add observer to list
-  }
-  remove(observer) {
-    // todo remove observer from list
-  }
-  count() {
-    // return observer list size
-  }
+	constructor() {
+		this.observerList = [];
+	}
+	add(observer) {
+		// todo add observer to list
+		this.observerList.push(observer)
+	}
+	remove(observer) {
+		// todo remove observer from list
+		this.observerList.map((item, index) => {
+			if (item == observer) {
+				this.observerList.splice(index, 1)
+			}
+		})
+	}
+	count() {
+		// return observer list size
+		return this.observerList.length
+	}
 }
 
 class Subject {
-  constructor() {
-    this.observers = new ObserverList();
-  }
-  addObserver(observer) {
-    // todo add observer
-  }
-  removeObserver(observer) {
-    // todo remove observer
-  }
-  notify(...args) {
-    // todo notify
-  }
+	constructor() {
+		this.observers = new ObserverList();
+	}
+	addObserver(observer) {
+		// todo add observer
+		this.observers.add(observer)
+	}
+	removeObserver(observer) {
+		// todo remove observer
+		this.observers.remove(observer)
+	}
+	notify(...args) {
+		// todo notify
+		let count = this.observers.count()
+		while (count--) {
+			this.observers.observerList[count].update(...args)
+		}
+
+
+
+	}
 }
 
 module.exports = { Subject };

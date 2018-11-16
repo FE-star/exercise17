@@ -11,12 +11,19 @@ class ObserverList {
   }
   add(observer) {
     // todo add observer to list
+      this.observerList.push(observer);
+  }
+  get(index) {
+    if(index > -1 && index < this.count()) {
+      return this.observerList[index];
+    }
   }
   remove(observer) {
     // todo remove observer from list
   }
   count() {
     // return observer list size
+      return this.observerList.length;
   }
 }
 
@@ -26,12 +33,16 @@ class Subject {
   }
   addObserver(observer) {
     // todo add observer
+      this.observers.add(observer);
   }
   removeObserver(observer) {
     // todo remove observer
   }
   notify(...args) {
     // todo notify
+      for(let i = 0; i < this.observers.count(); i++) {
+        this.observers.get(i).update(...args);
+      }
   }
 }
 

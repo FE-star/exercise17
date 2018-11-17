@@ -28,7 +28,7 @@ module.exports = class PubSub {
     const ind = fnArr.indexOf(fn);
 
     if (ind !== -1) {
-      fnArr.splice(ind);
+      fnArr.splice(ind, 1);
     }
   }
 

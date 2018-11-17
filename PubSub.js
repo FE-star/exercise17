@@ -12,15 +12,37 @@ module.exports = class PubSub {
   }
 
   subscribe(type, fn) {
-    // todo subscribe
+    if (!this.subscribers[type]) {
+      this.subscribers[type] = [];
+    }
+    this.subscribers[type].push(fn);
   }
 
   unsubscribe(type, fn) {
-    // todo unsubscribe
+    for (var type in this.subscribers) {
+      if (this.subscribers[type]) {
+        for (var i = 0, j = this.subscribers[type].length; i < j; i++) {
+          if (this.subscribers[type][i] === fn) {
+            this.subscribers[type].splice(i, 1);
+          }
+        }
+      }
+    }
+    return this;
   }
 
   publish(type, ...args) {
-    // todo publish
+    if (!this.subscribers[type]) {
+      return false;
+    }
+    var subscribers = this.subscribers[type],
+        len = subscribers ? subscribers.length : 0;
+
+    while (len--) {
+      subscribers[len].call(type, ...args);
+    }
+
+    return this;
   }
 
 }

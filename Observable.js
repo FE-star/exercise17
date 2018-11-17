@@ -7,31 +7,37 @@
 
 class ObserverList {
   constructor() {
-    this.observerList = [];
+    this.observerList = []
   }
   add(observer) {
-    // todo add observer to list
+    return this.observerList.push(observer)
   }
   remove(observer) {
-    // todo remove observer from list
+    for(var i=0,len=this.count();i<len;i++)
+      if(this.observerList[i]===observer)
+        return this.observerList.splice(i, 1)
   }
   count() {
-    // return observer list size
+    return this.observerList.length
+  }
+  get(i){
+    return this.observerList[i]
   }
 }
 
 class Subject {
   constructor() {
-    this.observers = new ObserverList();
+    this.observers = new ObserverList()
   }
   addObserver(observer) {
-    // todo add observer
+    this.observers.add(observer)
   }
   removeObserver(observer) {
-    // todo remove observer
+    this.observers.remove(observer)
   }
   notify(...args) {
-    // todo notify
+    for (var i = 0, len = this.observers.count(); i < len; i++)
+      this.observers.get(i).update(...args)
   }
 }
 

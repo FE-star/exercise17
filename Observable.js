@@ -15,9 +15,11 @@ class ObserverList {
   }
   remove(observer) {
     // todo remove observer from list
+    console.log(observer);
+    console.log(this.observerList);
     var index =-1;
-    for(var i=0;i<this.ObserverList.length;i++){
-      if(this.observerList[i] === observer) {
+    for(vari=0;i<this.ObserverList.length;i++){
+      if(this.observerList[i] == observer) {
         index=i;
       }
     }

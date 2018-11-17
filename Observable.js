@@ -30,6 +30,9 @@ class ObserverList {
     // return observer list size
     return this.observerList.length;
   }
+  getIndex(index) {
+    return this.observerList[index];
+  }
 }
 
 class Subject {
@@ -49,7 +52,7 @@ class Subject {
     var observerCount = this.observers.count();
     console.log(this.observers.observerList);
     for(var i=0;i<observerCount;i++) {
-      this.observers.observerList[i].update(args);
+      this.observers.getIndex(i).update(...args);
     }
   }
 }

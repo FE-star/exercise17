@@ -13,22 +13,14 @@ class ObserverList {
     // todo add observer to list
     return this.observerList.push(observer);
   }
-  getIndexOf(obj) {
-    var i = 0;
-    while( i < this.observerList.length ){
-      if( this.observerList[i] === obj ){
-        return i;
-      }
-      i++;
-    }
-    return -1;
-  }
+ 
   remove(observer) {
     // todo remove observer from list
     console.log(observer);
     console.log(this.observerList);
-      this.observerList.splice(this.observerList.getIndexOf(observer),1);
-
+    this.observerList = this.observerList.filter((currentObserver) => {
+      currentObserver != observer
+    });
   }
   count() {
     // return observer list size

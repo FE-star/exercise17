@@ -46,11 +46,10 @@ class Subject {
   }
   notify(...args) {
     // todo notify
-    console.log(...args);
     var observerCount = this.observers.count();
     console.log(this.observers.observerList);
     for(var i=0;i<observerCount;i++) {
-      this.observers.observerList[i].sum+=args[0];
+      this.observers.observerList[i].update(args);
     }
   }
 }

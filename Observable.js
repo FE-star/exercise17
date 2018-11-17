@@ -22,7 +22,7 @@ class ObserverList {
       }
     }
     if(index>-1) {
-      this.observerList.sersplice(index,1);
+      this.observerList.splice(index,1);
     }
 
   }
@@ -49,7 +49,7 @@ class Subject {
     console.log(...args);
     var observerCount = this.observers.count();
     for(var i=0;i<observerCount;i++) {
-      this.observers[i].update(...args);
+      this.observers[i].sum+=args[0];
     }
   }
 }

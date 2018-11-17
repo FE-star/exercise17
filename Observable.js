@@ -20,6 +20,10 @@ class ObserverList {
   }
   remove(observer) {
     // todo remove observer from list
+      const index = this.observerList.findIndex(o => o === observer);
+      if(index > -1) {
+          this.observerList.splice(index, 1);
+      }
   }
   count() {
     // return observer list size
@@ -37,6 +41,7 @@ class Subject {
   }
   removeObserver(observer) {
     // todo remove observer
+      this.observers.remove(observer);
   }
   notify(...args) {
     // todo notify

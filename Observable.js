@@ -16,7 +16,7 @@ class ObserverList {
   remove(observer) {
     // todo remove observer from list
     var index =-1;
-    for(i=0;i<this.ObserverList.length;i++){
+    for(var i=0;i<this.ObserverList.length;i++){
       if(this.observerList[i] === observer) {
         index=i;
       }

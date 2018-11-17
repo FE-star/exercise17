@@ -16,8 +16,6 @@ class ObserverList {
  
   remove(observer) {
     // todo remove observer from list
-    console.log(observer);
-    console.log(this.observerList);
     this.observerList = this.observerList.filter((currentObserver) => {
       currentObserver != observer
     });

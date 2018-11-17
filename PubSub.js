@@ -13,14 +13,43 @@ module.exports = class PubSub {
 
   subscribe(type, fn) {
     // todo subscribe
+    if (!this.subscribers[type]) {
+      this.subscribers[type] = []
+    }
+
+    this.subscribers[type].push(fn)
   }
 
   unsubscribe(type, fn) {
     // todo unsubscribe
+    if (!type) {
+      return;
+    }
+
+    const listenerList = this.subscribers[type];
+
+    if (!listenerList) {
+      return;
+    }
+
+    const index = listenerList.indexOf(fn);
+
+    if (index === -1) {
+      return;
+    }
+
+    listenerList.splice(index, 1);
   }
 
   publish(type, ...args) {
-    // todo publish
+    const listenerList = this.subscribers[type]
+    if (!listenerList) {
+      return;
+    }
+
+    for (const listener of listenerList) {
+      listener(...args);
+    }
   }
 
 }

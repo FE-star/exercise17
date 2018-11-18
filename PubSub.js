@@ -26,7 +26,7 @@ module.exports = class PubSub {
   publish(type, ...args) {
     // todo publish
     if(this.subscribers[type]) {
-      this.subscribers[type].apply(undefined, args)
+      this.subscribers[type].apply(this, args)
     }
   }
 

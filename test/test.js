@@ -18,6 +18,7 @@ describe('PubSub', () => {
     let val = random();
     ob.subscribe('add', (val) => sum += val);
     ob.publish('add', val);
+    console.log('sum',sum,'val',val)
     assert.ok(sum === val);
   });
 
@@ -73,3 +74,4 @@ describe('Observable', () => {
     assert.ok(ob.sum !== val);
   });
 });
+

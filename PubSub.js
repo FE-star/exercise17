@@ -13,14 +13,32 @@ module.exports = class PubSub {
 
   subscribe(type, fn) {
     // todo subscribe
+    if(typeof this.subscribers[type] === 'undefined') {
+      this.subscribers[type] = [fn];
+    } else {
+      this.subscribers[type].push(fn);
+    }
   }
 
   unsubscribe(type, fn) {
     // todo unsubscribe
+    let listener = this.subscribers[type];
+    if(!listener) {
+      return;
+    }
+    this.subscribers[type] = listener.filter(item => item != fn);
+
   }
 
   publish(type, ...args) {
     // todo publish
+    let listener = this.subscribers[type];
+    if(!listener) {
+      return;
+    }
+    listener.forEach(element => {
+      element.call(this, ...args);
+    });
   }
 
 }

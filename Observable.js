@@ -11,12 +11,25 @@ class ObserverList {
   }
   add(observer) {
     // todo add observer to list
+    this.observerList.push(observer);
   }
   remove(observer) {
     // todo remove observer from list
+    for (var i = 0; i < this.observerList.length; i++) {
+      if (this.observerList[i] == observer) {
+        this.observerList.splice(i, 1);
+        return this.observerList;
+      }
+    }
   }
   count() {
     // return observer list size
+    return this.observerList.length;
+  }
+  get(index) {
+    if (index > -1 && index < this.observerList.length) {
+      return this.observerList[index];
+    }
   }
 }
 
@@ -26,12 +39,18 @@ class Subject {
   }
   addObserver(observer) {
     // todo add observer
+    this.observers.add(observer);
   }
   removeObserver(observer) {
     // todo remove observer
+    this.observers.remove(observer);
   }
   notify(...args) {
     // todo notify
+    var count = this.observers.count();
+    for (var i = 0; i < count; i++) {
+      this.observers.get(i).update(...args);
+    }
   }
 }
 

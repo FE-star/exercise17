@@ -7,20 +7,25 @@
 
 module.exports = class PubSub {
 
-  constructor() {
-    this.subscribers = {};
-  }
+    constructor() {
+        this.subscribers = {};
+    }
 
-  subscribe(type, fn) {
-    // todo subscribe
-  }
+    subscribe(type, fn) {
+        // todo subscribe
+        this.subscribers[type] = fn
+    }
 
-  unsubscribe(type, fn) {
-    // todo unsubscribe
-  }
+    unsubscribe(type, fn) {
+        // todo unsubscribe
+        this.subscribers[type] = null
+    }
 
-  publish(type, ...args) {
-    // todo publish
-  }
+    publish(type, ...args) {
+        // todo publish
+        if (this.subscribers[type]) {
+            this.subscribers[type].call(this, ...args)
+        }
+    }
 
 }

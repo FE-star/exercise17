@@ -11,12 +11,30 @@ class ObserverList {
   }
   add(observer) {
     // todo add observer to list
+    return this.observerList.push(observer);
   }
-  remove(observer) {
+  remove(index) {
     // todo remove observer from list
+    this.observerList.splice(index, 1)
   }
   count() {
     // return observer list size
+    return this.observerList.length
+  }
+  get(index) {
+    if (index > -1 && index < this.observerList.length) {
+      return this.observerList[index]
+    }
+  }
+  indexOf(observer, startIndex) {
+    var i = startIndex;
+    while (i < this.observerList.length) {
+      if (this.observerList[i] === observer) {
+        return i
+      }
+      i++
+    }
+    return -1
   }
 }
 
@@ -26,12 +44,18 @@ class Subject {
   }
   addObserver(observer) {
     // todo add observer
+    this.observers.add(observer)
   }
   removeObserver(observer) {
     // todo remove observer
+    this.observers.remove(this.observers.indexOf(observer, 0))
   }
   notify(...args) {
     // todo notify
+    var observerCount = this.observers.count();
+    for (var i = 0; i < observerCount; i++) {
+      this.observers.get(i).update(...args)
+    }
   }
 }
 

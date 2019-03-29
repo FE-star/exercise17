@@ -34,6 +34,11 @@ describe('PubSub', () => {
     ob.unsubscribe('add', add);
     ob.publish('add', val);
     assert.ok(sum !== val);
+
+    ob.subscribe('add', (val)=> val++);
+    ob.publish('add', val);
+    assert.ok( ++val === val);
+
   });
 });
 

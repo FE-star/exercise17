@@ -1,8 +1,8 @@
 /*
  * @Author: kael 
  * @Date: 2018-02-01 17:41:25 
- * @Last Modified by: kael
- * @Last Modified time: 2018-02-02 17:38:36
+ * @Last Modified by: mt
+ * @Last Modified time: 2019-08-10 23:29:08
  */
 
 class ObserverList {
@@ -10,13 +10,19 @@ class ObserverList {
     this.observerList = [];
   }
   add(observer) {
-    // todo add observer to list
+    this.observerList.push(observer);
   }
   remove(observer) {
-    // todo remove observer from list
+    const index = this.observerList.indexOf(observer);
+    if (index !== -1) {
+      this.observerList.splice(index, 1);
+    }
   }
   count() {
-    // return observer list size
+    return this.observerList.length;
+  }
+  iterate(cb) {
+    this.observerList.forEach(cb);
   }
 }
 
@@ -25,13 +31,15 @@ class Subject {
     this.observers = new ObserverList();
   }
   addObserver(observer) {
-    // todo add observer
+    this.observers.add(observer);
   }
   removeObserver(observer) {
-    // todo remove observer
+    this.observers.remove(observer);
   }
   notify(...args) {
-    // todo notify
+    this.observers.iterate(function (observer) {
+      observer.update(...args);
+    });
   }
 }
 

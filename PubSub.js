@@ -12,15 +12,41 @@ module.exports = class PubSub {
   }
 
   subscribe(type, fn) {
-    // todo subscribe
+    if (!type || !fn) return;
+    if (!this.subscribers[type]) {
+      this.subscribers[type] = []
+    }
+
+    this.subscribers[type].push(fn)
   }
 
   unsubscribe(type, fn) {
-    // todo unsubscribe
+    if(!type) return
+    const subscribeFns = this.subscribers[type]
+
+    if (!subscribeFns || subscribeFns.length === 0) return
+    
+    if(!fn) this.subscribers[type] = []
+    
+    for (let i = 0, len = subscribeFns.length; i < len; i++) {
+      if (subscribeFns[i] === fn) {
+        subscribeFns.splice(i, 1)
+        return
+      }
+    }
+    
   }
 
   publish(type, ...args) {
-    // todo publish
+    if (!type) return
+    const subscribeFns = this.subscribers[type]
+    if (!subscribeFns || subscribeFns.length === 0) return
+    
+    if (subscribeFns.length === 1) return subscribeFns[0](...args)
+    
+    for (let i = 0, len = subscribeFns.length; i < len; i++) {
+      subscribeFns[i](...args)
+    }
   }
 
 }
